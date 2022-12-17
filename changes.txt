@@ -1,0 +1,7 @@
+Hanrui, 12-16:
+1.J'ai travaillé directement dans le template que TA nous avons donné, c’est plus facile. 
+2.Pour exécuter ce programme, il faut set-up le environemment virtuel, vous pouvez regarder le fichier readMe pour faire ça.
+3.ce programme est indépendant de milestone1 et mileston2, mais j'ai copié quelques fichiers qui contiennent les fonctions pertinentes, dans le répertoire ''milstone1-2",  ces fonctions peuvent être utiles pour les autre questons.
+4.le server flask  est dans le chemin 'serving/app.py',  et dans le répertoire serving, j'ai créé une fichier test_requete.ipynb pour tester les requetes.  
+
+
