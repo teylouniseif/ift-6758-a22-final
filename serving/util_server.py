@@ -18,6 +18,7 @@ def download_model(workspace, model , version , model_log):
         try:
             api = API(api_key='57KbI0mTaIGplsSaYoAFXYMFL')
             # Download a Registry Model:
+
             api.download_registry_model(workspace, model, version, output_path="./"+model, expand=True)
         except:
             # write to the log about the failure
@@ -32,6 +33,5 @@ def download_model(workspace, model , version , model_log):
             # write to the log about the model change
             msg = 'Le modèle est changé à: '+model
 
-    
-    return msg,model_log
 
+    return msg,model_log
