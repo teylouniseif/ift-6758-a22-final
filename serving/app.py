@@ -125,15 +125,16 @@ def predict():
     """
     # Get POST json data
     js = request.get_json()
-    json_dict = json.loads(js)
+    json_str = json.dumps(js)
 
-    df_test = pd.DataFrame.from_dict(json_dict)
+    df_test = pd.read_json(json_str)
     df_test["Rebond"]=df_test["Rebond"].astype("category")
     df_test["Last_event_type"]=df_test["Last_event_type"].astype("category")
     df_test["Shot_Type"]=df_test["Shot_Type"].astype("category")
 
 
-    preds = model_log.predict(df_test)
+    preds = model_log.predict_proba(df_test)
+    preds = preds[:, 1]
     print(preds)
 
 

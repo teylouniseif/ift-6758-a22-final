@@ -1,17 +1,17 @@
 from serving_client import ServingClient
 from game_client import GameClient
-#import pandas as pd
+"""import pandas as pd
 
 
-"""x =  ServingClient(port=5001, features=['Secondes_jeu', 'Period_Number', 'X_Coordinate', 'Y_Coordinate',
+x =  ServingClient(port=5001, features=['Secondes_jeu', 'Period_Number', 'X_Coordinate', 'Y_Coordinate',
        'Distance', 'Angle', 'Shot_Type', 'Last_event_type', 'X_last_event',
        'Y_last_event', 'Sec_from_lastEvent', 'Dis_from_lastEvent', 'Rebond',
        'Angle_change', 'Vitesse'])
-print(x.download_registry_model(
-workspace="teylouniseifu",
-model="boosted-tree-all-features-for-q5",
-version="1.0.0"
-))
+#print(x.download_registry_model(
+#workspace="teylouniseifu",
+#model="boosted-tree-all-features-for-q5",
+#version="1.0.0"
+#))
 
 js = {
 "Secondes_jeu":{"185963":234.6,"286835":1698.6,"300289":432.6,"9512":2397.0,"188403":1311.6},

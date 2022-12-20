@@ -27,8 +27,8 @@ class ServingClient:
         Args:
             X (Dataframe): Input dataframe to submit to the prediction service.
         """
-        json=X[self.features].to_json()
-        r = requests.post(url = self.base_url+'/'+'predict', json=json)
+        data=X[self.features].to_dict()
+        r = requests.post(url = self.base_url+'/'+'predict', json=data)
         return r.text
 
 
