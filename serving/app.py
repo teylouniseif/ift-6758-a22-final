@@ -1,6 +1,6 @@
 """
 If you are in the same directory as this file (app.py), you can run run the app using gunicorn:
-    
+
     $ gunicorn --bind 0.0.0.0:<PORT> app:app
 
 gunicorn can be installed via:
@@ -61,7 +61,7 @@ def before_first_request():
 @app.route("/logs", methods=["GET"])
 def logs():
     """Reads data from the log file and returns them as the response"""
-    
+
     # TODO: read the log file specified and return the data
     with open('flask.log', 'r') as f:
         log = f.read()
@@ -92,19 +92,19 @@ def download_registry_model():
             version: (required),
             ... (other fields if needed) ...
         }
-    
+
     """
     # Get POST json data
-    js = request.get_json()
+    js = request.get_json(force = True)
     workspace = js['workspace']
     model = js['model']
     version = js['version']
 
     # TODO: check to see if the model you are querying for is already downloaded
-    # TODO: if yes, load that model and write to the log about the model change.  
+    # TODO: if yes, load that model and write to the log about the model change.
     # eg: app.logger.info(<LOG STRING>)
     # TODO: if no, try downloading the model: if it succeeds, load that model and write to the log
-    # about the model change. If it fails, write to the log about the failure and keep the 
+    # about the model change. If it fails, write to the log about the failure and keep the
     # currently loaded model
     global model_log
     msg, model_log =download_model(workspace, model , version , model_log)
@@ -112,7 +112,7 @@ def download_registry_model():
         app.logger.error(msg)
     else:
         app.logger.info(msg)
-    
+
     return None
 
 
@@ -126,24 +126,22 @@ def predict():
     # Get POST json data
     js = request.get_json()
     json_str = json.dumps(js)
-   
-    df_test = pd.read_json(json_str)
+
+    df_test = pd.read_json(json_str) #.drop(columns=["Team_of_Shooter"])
     df_test["Rebond"]=df_test["Rebond"].astype("category")
     df_test["Last_event_type"]=df_test["Last_event_type"].astype("category")
     df_test["Shot_Type"]=df_test["Shot_Type"].astype("category")
-    
-    preds = model_log.predict(df_test)
 
 
-    
+    preds = model_log.predict_proba(df_test)
+    preds = preds[:, 1]
+    print(preds)
+
+
+
     response = preds.tolist()
 
 
     app.logger.info("Les résultats des prédiction du modèle"+ str(response))
 
     return jsonify(response)  # response must be json serializable!
-
-    
-
-
-
