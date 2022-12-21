@@ -1,5 +1,6 @@
 from serving_client import ServingClient
 from game_client import GameClient
+import json
 """import pandas as pd
 
 
@@ -34,7 +35,23 @@ df=pd.DataFrame.from_dict(js)
 print(x.predict(df))"""
 
 
+client_fournisseur =  ServingClient(features=['Secondes_jeu', 'Period_Number', 'X_Coordinate', 'Y_Coordinate',
+       'Distance', 'Angle', 'Shot_Type', 'Last_event_type', 'X_last_event',
+       'Y_last_event', 'Sec_from_lastEvent', 'Dis_from_lastEvent', 'Rebond',
+       'Angle_change', 'Vitesse'])
+client_game =  GameClient(features=['Secondes_jeu', 'Period_Number', 'X_Coordinate', 'Y_Coordinate',
+       'Distance', 'Angle', 'Shot_Type', 'Last_event_type', 'X_last_event',
+       'Y_last_event', 'Sec_from_lastEvent', 'Dis_from_lastEvent', 'Rebond',
+       'Angle_change', 'Vitesse'])
+df = client_game.get_game_events(2021020329)
 
-#x =  GameClient(port=5001)
-#print(x.get_game_events(2021020329))
-#print(x.get_game_events(2021020329))
+
+print(client_fournisseur.predict(df))
+print(client_game.get_team_names())
+print(client_game.get_period_info())
+
+# print(x.get_game_events(2021020329))
+# print("**********************************")
+# print("**********************************")
+# print("**********************************")
+# print(x.get_game_events(2021020329))

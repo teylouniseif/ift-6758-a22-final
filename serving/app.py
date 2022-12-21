@@ -127,7 +127,7 @@ def predict():
     js = request.get_json()
     json_str = json.dumps(js)
 
-    df_test = pd.read_json(json_str)
+    df_test = pd.read_json(json_str) #.drop(columns=["Team_of_Shooter"])
     df_test["Rebond"]=df_test["Rebond"].astype("category")
     df_test["Last_event_type"]=df_test["Last_event_type"].astype("category")
     df_test["Shot_Type"]=df_test["Shot_Type"].astype("category")
