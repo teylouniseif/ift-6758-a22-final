@@ -1,20 +1,27 @@
 from serving_client import ServingClient
 from game_client import GameClient
 import json
-"""import pandas as pd
+import pandas as pd
 
 
-x =  ServingClient(port=5001, features=['Secondes_jeu', 'Period_Number', 'X_Coordinate', 'Y_Coordinate',
+x =  ServingClient( features=['Secondes_jeu', 'Period_Number', 'X_Coordinate', 'Y_Coordinate',
        'Distance', 'Angle', 'Shot_Type', 'Last_event_type', 'X_last_event',
        'Y_last_event', 'Sec_from_lastEvent', 'Dis_from_lastEvent', 'Rebond',
        'Angle_change', 'Vitesse'])
-#print(x.download_registry_model(
-#workspace="teylouniseifu",
-#model="boosted-tree-all-features-for-q5",
-#version="1.0.0"
-#))
+client_game =  GameClient(features=['Secondes_jeu', 'Period_Number', 'X_Coordinate', 'Y_Coordinate',
+       'Distance', 'Angle', 'Shot_Type', 'Last_event_type', 'X_last_event',
+       'Y_last_event', 'Sec_from_lastEvent', 'Dis_from_lastEvent', 'Rebond',
+       'Angle_change', 'Vitesse'])
+print(x.download_registry_model(
+workspace="teylouniseifu",
+model="neural-network-for-q6",
+version="1.0.0"
+))
+df = client_game.get_game_events(2021020329)
+print(x.predict(df))
 
-js = {
+
+"""js = {
 "Secondes_jeu":{"185963":234.6,"286835":1698.6,"300289":432.6,"9512":2397.0,"188403":1311.6},
 "Period_Number":{"185963":1,"286835":2,"300289":1,"9512":2,"188403":2},
 "X_Coordinate":{"185963":55,"286835":-87,"300289":-76,"9512":77,"188403":-53},
@@ -31,8 +38,8 @@ js = {
 "Angle_change":{"185963":0,"286835":0,"300289":0,"9512":0,"188403":0},
 "Vitesse":{"185963":12.5876284191,"286835":0.7191823638,"300289":0.299984695,"9512":6.1941953114,"188403":5.307692776}
 }
-df=pd.DataFrame.from_dict(js)
-print(x.predict(df))"""
+#df=pd.DataFrame.from_dict(js)
+#print(x.predict(df))
 
 
 client_fournisseur =  ServingClient(features=['Secondes_jeu', 'Period_Number', 'X_Coordinate', 'Y_Coordinate',
@@ -48,7 +55,7 @@ df = client_game.get_game_events(2021020329)
 
 print(client_fournisseur.predict(df))
 print(client_game.get_team_names())
-print(client_game.get_period_info())
+print(client_game.get_period_info())"""
 
 # print(x.get_game_events(2021020329))
 # print("**********************************")

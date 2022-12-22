@@ -113,7 +113,7 @@ def download_registry_model():
     else:
         app.logger.info(msg)
 
-    return None
+    return model_log
 
 
 @app.route("/predict", methods=["POST"])
