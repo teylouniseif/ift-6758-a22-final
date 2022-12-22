@@ -14,14 +14,42 @@ client_game =  GameClient(features=['Secondes_jeu', 'Period_Number', 'X_Coordina
        'Angle_change', 'Vitesse'])
 print(x.download_registry_model(
 workspace="teylouniseifu",
-model="boosted-tree-all-features-for-q5",
+model="boosted-tree-all-features-for-q5",#
 version="1.0.0"
 ))
 df = client_game.get_game_events(2021020329)
 print(x.predict(df))"""
 
-x =  ServingClient( features=['Distance', 'Angle'])
-client_game =  GameClient(features=['Distance', 'Angle'])
+x =  ServingClient( features=['Secondes_jeu', 'Period_Number', 'X_Coordinate', 'Y_Coordinate',
+       'Distance', 'Angle', 'Shot_Type', 'Last_event_type', 'X_last_event',
+       'Y_last_event', 'Sec_from_lastEvent', 'Dis_from_lastEvent', 'Rebond',
+       'Angle_change', 'Vitesse'])
+client_game =  GameClient(features=['Secondes_jeu', 'Period_Number', 'X_Coordinate', 'Y_Coordinate',
+       'Distance', 'Angle', 'Shot_Type', 'Last_event_type', 'X_last_event',
+       'Y_last_event', 'Sec_from_lastEvent', 'Dis_from_lastEvent', 'Rebond',
+       'Angle_change', 'Vitesse'])
+print(x.download_registry_model(
+workspace="teylouniseifu",
+model="xgboost-model-milestone3",#
+version="1.0.0"
+))
+df = client_game.get_game_events(2021020329)
+print(x.predict(df))
+
+"""x =  ServingClient( features=['Secondes_jeu','Period_Number','X_Coordinate','Y_Coordinate','Distance','Angle'
+,'X_last_event','Y_last_event','Sec_from_lastEvent','Dis_from_lastEvent','Angle_change','Vitesse'])
+client_game =  GameClient(features=['Secondes_jeu','Period_Number','X_Coordinate','Y_Coordinate','Distance','Angle'
+,'X_last_event','Y_last_event','Sec_from_lastEvent','Dis_from_lastEvent','Angle_change','Vitesse'])
+print(x.download_registry_model(
+workspace="teylouniseifu",
+model="neural-network-for-q6",# "boosted-tree-all-features-for-q5",#
+version="1.0.0"
+))
+df = client_game.get_game_events(2021020329)
+print(x.predict(df))"""
+
+"""x =  ServingClient( features=['Angle', 'Distance'])
+client_game =  GameClient(features=['Angle', 'Distance'])
 print(x.download_registry_model(
 workspace="teylouniseifu",
 model="boosted-tree-distance-and-angle",
@@ -29,7 +57,7 @@ version="1.0.0"
 ))
 df = client_game.get_game_events(2021020329)
 print(df)
-print(x.predict(df))
+print(x.predict(df))"""
 
 
 """js = {

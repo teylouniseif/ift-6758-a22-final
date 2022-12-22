@@ -51,7 +51,7 @@ def before_first_request():
 
     #chager le modele par default
     global model_log
-    msg, model_log =download_model('teylouniseifu', 'xgboost-model-milestone3' , '1.0.0' , model_log)
+    msg, model_log =download_model('teylouniseifu', 'xgboost-model-milestone3' , '1.0.0' , model_log, app.logger)
     app.logger.info('chager le modele par default: '+'xgboost-model-milestone3')
 
 
@@ -107,7 +107,7 @@ def download_registry_model():
     # about the model change. If it fails, write to the log about the failure and keep the
     # currently loaded model
     global model_log
-    msg, model_log =download_model(workspace, model , version , model_log)
+    msg, model_log =download_model(workspace, model , version , model_log, app.logger)
     if "Échec" in msg:
         app.logger.error(msg)
     else:
@@ -135,12 +135,12 @@ def predict():
     if 'Shot_Type' in df_test:
         df_test["Shot_Type"]=df_test["Shot_Type"].astype("category")
 
-    app.logger.info('hallo2')
-    app.logger.info(df_test.columns)
-    preds = model_log.predict_proba(df_test)
-    app.logger.info('hallo4')
-    preds = preds[:, 1]
-    print(preds)
+    try:
+        preds = model_log.predict_proba(df_test)
+    except:
+        app.logger.info(model_log)
+        preds = model_log.predict(df_test)
+    preds = preds[:, 0]
 
 
 
