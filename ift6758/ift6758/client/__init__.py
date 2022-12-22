@@ -1,5 +1,5 @@
-from serving_client import ServingClient
-from game_client import GameClient
+from ift6758.client.serving_client import ServingClient
+from ift6758.client.game_client import GameClient
 import json
 """import pandas as pd
 

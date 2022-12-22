@@ -16,3 +16,4 @@ jupyterlab
 ipywidgets
 streamlit
 xgboost
+waitress
