@@ -45,11 +45,11 @@ print(x.predict(df))
 client_fournisseur =  ServingClient(features=['Secondes_jeu', 'Period_Number', 'X_Coordinate', 'Y_Coordinate',
        'Distance', 'Angle', 'Shot_Type', 'Last_event_type', 'X_last_event',
        'Y_last_event', 'Sec_from_lastEvent', 'Dis_from_lastEvent', 'Rebond',
-       'Angle_change', 'Vitesse'])
+       'Angle_change', 'Vitesse'],port=80)
 client_game =  GameClient(features=['Secondes_jeu', 'Period_Number', 'X_Coordinate', 'Y_Coordinate',
        'Distance', 'Angle', 'Shot_Type', 'Last_event_type', 'X_last_event',
        'Y_last_event', 'Sec_from_lastEvent', 'Dis_from_lastEvent', 'Rebond',
-       'Angle_change', 'Vitesse'])
+       'Angle_change', 'Vitesse'],port=80)
 df = client_game.get_game_events(2021020329)
 
 
