@@ -14,6 +14,22 @@ FROM python:3.7
 # Create and cd into /code as your working directory
 WORKDIR /code
 
+ADD ./ift6758/requirements.txt ./requirements.txt
+ADD ./serving/app.py ./app.py
+ADD ./serving/util_server.py ./util_server.py
+
+RUN pip install -r ./requirements.txt
+
+ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_RUN_PORT=80
+ENV COMET_API_KEY="57KbI0mTaIGplsSaYoAFXYMFL"
+
+# TODO: expose ports (or do this in docker-compose)
+EXPOSE 80
+
+CMD ["flask", "run"]
+
 
 # The main docker commands you will find useful:
 # 
@@ -45,17 +61,14 @@ WORKDIR /code
 
 
 # TODO: add code, optionally a default model if you want 
-ADD ./ift6758/requirements.txt ./
-ADD ./serving/app.py ./
-ADD ./serving/util_server.py ./
+
 
 # TODO: install libs
-RUN pip install -r ./requirements.txt
+
 
 # TODO: expose ports (or do this in docker-compose)
-EXPOSE 127.0.0.1:80:8080/tcp
 
 # TODO: specify default command - this is not required because you can always specify the command
 # either with the docker run command or in the docker-compose file
-CMD gunicorn --bind 127.0.0.1:80:8080 app:app
+
 
