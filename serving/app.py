@@ -113,7 +113,7 @@ def download_registry_model():
     else:
         app.logger.info(msg)
 
-    return model_log
+    return None
 
 
 @app.route("/predict", methods=["POST"])
@@ -128,12 +128,17 @@ def predict():
     json_str = json.dumps(js)
 
     df_test = pd.read_json(json_str) #.drop(columns=["Team_of_Shooter"])
-    df_test["Rebond"]=df_test["Rebond"].astype("category")
-    df_test["Last_event_type"]=df_test["Last_event_type"].astype("category")
-    df_test["Shot_Type"]=df_test["Shot_Type"].astype("category")
+    if 'Rebond' in df_test:
+        df_test["Rebond"]=df_test["Rebond"].astype("category")
+    if 'Last_event_type' in df_test:
+        df_test["Last_event_type"]=df_test["Last_event_type"].astype("category")
+    if 'Shot_Type' in df_test:
+        df_test["Shot_Type"]=df_test["Shot_Type"].astype("category")
 
-
+    app.logger.info('hallo2')
+    app.logger.info(df_test.columns)
     preds = model_log.predict_proba(df_test)
+    app.logger.info('hallo4')
     preds = preds[:, 1]
     print(preds)
 
