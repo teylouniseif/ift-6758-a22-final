@@ -140,7 +140,9 @@ def predict():
     except:
         app.logger.info(model_log)
         preds = model_log.predict(df_test)
-    preds = preds[:, 0]
+    
+
+    preds = preds[:, 1]
 
 
 

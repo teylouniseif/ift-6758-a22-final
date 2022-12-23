@@ -4,7 +4,7 @@ import tqdm
 import os
 import numpy as np
 import math
-from ift6758.client.q4_outil import*
+from q4_outil import*
 
 # The function create_full_df can now create a DF with all files in a directory
 
@@ -50,6 +50,8 @@ def get_df_from_game(data) -> pd.DataFrame:
         rebonds = []
         angle_changes=[]
         vitesses = []
+        aways_goals = []
+        home_goals = []
         
 
 
@@ -83,6 +85,8 @@ def get_df_from_game(data) -> pd.DataFrame:
             eventID.append(ex["about.eventIdx"])
             periodNum.append(ex["about.period"])
             periodTime.append(ex["about.periodTime"])
+            aways_goals.append(ex["about.goals.away"])
+            home_goals.append(ex["about.goals.home"])
             
             # Computing the time of the game with max value at 60min
             time = ex["about.periodTime"].split(":")
@@ -151,7 +155,7 @@ def get_df_from_game(data) -> pd.DataFrame:
                                Y_Coordinate=yCoord, Distance=distances, Angle=angles, Est_un_but=est_un_buts,
                                Filet_vide=filet_vides, Last_event_type = last_event_types , Rebond = rebonds, X_last_event =  x_lastEvent, Y_last_event = y_lastEvent,
                                Sec_from_lastEvent = list_sec_from_lastEvent, Dis_from_lastEvent = list_dis_from_lastEvent,
-                               Angle_change = angle_changes , Vitesse = vitesses 
+                               Angle_change = angle_changes , Vitesse = vitesses , Aways_goals =aways_goals, Home_goals  = home_goals
                                )
     except Exception as e:
         pass
