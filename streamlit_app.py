@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import ift6758.client.game_client as game_client
 import ift6758.client.serving_client as serving_client
-from datetime import timedelta, time, date, datetime
+from datetime import time
 
 st.title("Hockey Visualization App")
 
@@ -57,8 +57,8 @@ with st.container():
             elif df['Team_of_Shooter'].iloc[idx] == teamnames[1]:
                 home_score += float(predictions[idx])
 
-        away.metric(teamnames[0]+" xG (actual)", round(away_score,1), )
-        home.metric(teamnames[1]+" xG (actual)", round(home_score,1), )
+        away.metric(teamnames[0]+" xG (actual)", str(round(away_score,1))+" ("+str(gameClient.get_vrai_scores()[teamnames[0]])+") ", round(away_score,1)-gameClient.get_vrai_scores()[teamnames[0]])
+        home.metric(teamnames[1]+" xG (actual)", str(round(home_score,1))+" ("+str(gameClient.get_vrai_scores()[teamnames[1]])+") ", round(home_score,1)-gameClient.get_vrai_scores()[teamnames[1]])
 
         st.header("Data Used for predict")
-        st.dataframe(df)
+        st.dataframe(df.drop(['Remaining_Time', 'Team_of_Shooter'], axis = 1))
