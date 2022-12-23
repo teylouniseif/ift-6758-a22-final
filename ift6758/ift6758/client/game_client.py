@@ -18,11 +18,11 @@ class GameClient:
         #pour faciliter la calcul de la somme des buts attendus (xG) pour le jeu entier jusqu'à présent pour les deux équipes
         #on ajoute un colonne Team_of_Shooter pour distinguer les tir/buts pourduit par les deux epuipes
         if features is None:
-            self.features = ["distance","Team_of_Shooter"]
+            self.features = ["Distance","Team_of_Shooter"]
         else:
             self.features = features
             self.features.append("Team_of_Shooter")
-    
+
         # any other potential initialization
         self.last_event=None
 
@@ -30,7 +30,7 @@ class GameClient:
     def get_game_events(self, game_id) -> pd.DataFrame:
         url = "https://statsapi.web.nhl.com/api/v1/game/"+str(game_id)+"/feed/live/"
         r = requests.get(url = url)
-        
+
         new_plays = get_df_from_game(r.json())
 
         # new_plays = sorted(new_plays, key=lambda x: x['about']['eventIdx']) #not eventId
@@ -40,10 +40,10 @@ class GameClient:
         self.teamNames =  new_plays['Team_of_Shooter'].unique().tolist()
         self.Period_Number = tmp['Period_Number']
         self.Period_Time = tmp['Period_Time']
-        
+
         if self.last_event is not None:
             new_plays = new_plays[new_plays['Event_ID'] >  self.last_event['Event_ID']]
-        
+
 
         self.last_event=tmp
 
@@ -54,6 +54,6 @@ class GameClient:
         return self.teamNames
 
 
-    
+
     def get_period_info(self):
         return self.Period_Number ,self.Period_Time
