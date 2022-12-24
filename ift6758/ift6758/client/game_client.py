@@ -2,7 +2,7 @@ import json
 import requests
 import pandas as pd
 import logging
-from mileston2_q4 import*
+from ift6758.ift6758.client.mileston2_q4 import*
 logger = logging.getLogger(__name__)
 
 
@@ -58,8 +58,7 @@ class GameClient:
     
     def get_vrai_scores(self):
         return self.vrai_scores
-
-
+    # cette fonction retour un dictonaire{'WSH': 4, 'CAR': 2}
 
     def get_period_info(self):
         return self.Period_Number ,self.Period_Time

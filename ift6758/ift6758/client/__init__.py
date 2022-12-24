@@ -1,5 +1,5 @@
-from serving_client import ServingClient
-from game_client import GameClient
+from ift6758.ift6758.client.serving_client import ServingClient
+from ift6758.ift6758.client.game_client import GameClient
 import json
 import pandas as pd
 
@@ -36,7 +36,7 @@ version="1.0.0"
 df = client_game.get_game_events(2021020329)
 print(x.predict(df))
 # print(df)
-# print(client_game.get_vrai_scores())
+print(client_game.get_vrai_scores())
 # print(client_game.get_team_names())
 # x.predict(df)
 # print(x.logs())

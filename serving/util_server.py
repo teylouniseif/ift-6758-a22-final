@@ -24,7 +24,7 @@ def download_model(workspace, model , version , model_log, logger):
         msg = 'Le modèle est changé à: '+model
     else:
         try:
-            api = API(api_key='57KbI0mTaIGplsSaYoAFXYMFL')
+            api = API(api_key=os.environ['COMET_API_KEY'])
             # Download a Registry Model:
             api.download_registry_model(workspace, model, version, output_path="./"+model, expand=True)
         except:

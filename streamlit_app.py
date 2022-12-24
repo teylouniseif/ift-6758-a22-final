@@ -1,25 +1,33 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import ift6758.client.game_client as game_client
-import ift6758.client.serving_client as serving_client
+# import ift6758.ift6758.client.game_client as game_client
+# import ift6758.ift6758.client.serving_client as serving_client
+from ift6758.ift6758.client.game_client import GameClient
+from ift6758.ift6758.client.serving_client import ServingClient
 from datetime import time
 
 st.title("Hockey Visualization App")
 
 game_idx = dict()
-servingClient = serving_client.ServingClient(features=['Secondes_jeu', 'Period_Number', 'X_Coordinate', 'Y_Coordinate',
+servingClient = ServingClient(ip="serving",features=['Secondes_jeu', 'Period_Number', 'X_Coordinate', 'Y_Coordinate',
 'Distance', 'Angle', 'Shot_Type', 'Last_event_type', 'X_last_event',
 'Y_last_event', 'Sec_from_lastEvent', 'Dis_from_lastEvent', 'Rebond',
 'Angle_change', 'Vitesse'])
-gameClient = game_client.GameClient(features=['Secondes_jeu', 'Period_Number', 'X_Coordinate', 'Y_Coordinate',
+gameClient = GameClient(ip="serving",features=['Secondes_jeu', 'Period_Number', 'X_Coordinate', 'Y_Coordinate',
 'Distance', 'Angle', 'Shot_Type', 'Last_event_type', 'X_last_event',
 'Y_last_event', 'Sec_from_lastEvent', 'Dis_from_lastEvent', 'Rebond',
 'Angle_change', 'Vitesse'])
 
 with st.sidebar:
     workspace = st.text_input("Workspace", value="teylouniseifu")
-    model = st.text_input("Model", value="model-xgb-2")
+    # model = st.text_input("Model", value="model-xgb-2")
+    
+    
+    options = ['model-xgb-2', 'xgboost-model-milestone3']
+    model = st.selectbox('Model', options)
+
+
     version = st.text_input("Version", value="1.0.0")
     if st.button("Get model"):
         servingClient.download_registry_model(workspace,model,version)
@@ -32,6 +40,7 @@ with st.container():
         df = gameClient.get_game_events(game_id)
         
         predictions = servingClient.predict(df)[1:-2].split(',')
+        df['model_output'] = predictions
         print(predictions)
         teamnames = gameClient.get_team_names()
         st.header("Game "+game_id+" : "+teamnames[0]+" vs "+teamnames[1])        
